@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<meta property='og:title' content='RainDiff: End to End Precipitation Nowcasting Via Token-wise Attention Diffusion'/>
+<meta property='og:image' content=''/>
+<meta property='og:description' content=''/>
+<meta property='og:url' content='https://github.com/mbzuai-oryx/FoMER-Bench'/>
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='663' /
+<!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+<meta property="og:type" content='website'/>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8C9HNV84MC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8C9HNV84MC');
+</script>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="RainDiff: End to End Precipitation Nowcasting Via Token-wise Attention Diffusion">
+  <meta name="keywords" content="AI for Weather; Precipitation Nowcasting; AI for Science; Diffusion Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RainDiff: End to End Precipitation Nowcasting Via Token-wise Attention Diffusion</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/tab_gallery.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="stylesheet" href="juxtapose/css/juxtapose.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/magnifier.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/menlo" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/image_card_fader.css">
+  <link rel="stylesheet" href="./static/css/image_card_slider.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<style>
+  @import url('https://fonts.cdnfonts.com/css/menlo');
+</style>
+
+
+<body>
+  <section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">RainDiff: End to End Precipitation Nowcasting Via Token-wise Attention Diffusion</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="">Thao Nguyen</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="">Jiaqi Ma</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="">Fahad Khan</a><sup>1, 3</sup>,</span>
+            <span class="author-block"><a href="">Souhaib Ben Taieb</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="">Salman Khan</a><sup>1, 2</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block"><sup>â™ </sup> Core Authors</span>
+            <br> -->
+            <span class="author-block"><sup>1</sup>Mohamed bin Zayed University of AI,</span>
+                <br>
+            <span class="author-block"><sup>2</sup>Australian National University,</span>
+            <span class="author-block"><sup>3</sup>Linkoping University,</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. --> <!-- not done -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2509.15293" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/mbzuai-oryx/FoMER-Bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+
+              <span class="link-block">
+                <a href="#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-obp"></i>
+                  </span>
+                  <span>BibTex</span>
+                </a>
+              </span>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <p align="justify"> 
+        <!-- <b>How can AI-powered agents make safe and intelligent choices in the real world?</b> <br> Our research introduces a large-scale benchmark that tests whether todays large multimodal models (LMMs) can truly reason about space, safety, and context when acting in complex environments. With over 1,000 carefully designed questions and a new evaluation framework, we reveal both the promise and the limitations of current models, pointing the way toward more reliable, reasoning-aware embodied AI.</p> -->
+    <br>
+
+        <!-- <div class="text-align:center;"> -->
+        <div class="content has-text-centered">
+
+            <img src="./static/images/sevir.png" style="display:block;margin:0 auto;">
+            <p align="justify"> <b> <span>Figure 1: </span></b> A visualization from the SEVIR dataset shows that, 
+              at the longest forecast horizon, RainDiff avoids 
+              oversmoothed outputs and better preserves weather 
+              fronts compared to the state-of-the-art DiffCast, 
+              resulting in closer alignment with the ground truth.</p>
+        </div>
+    </div>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+                 <!-- Visual Effects. -->
+      <h2 class="title is-3">Abstract</h2>
+      <div class="content has-text-justified">
+        <p>
+          Precipitation nowcasting, predicting future radar echo sequences from current observations, 
+          is a critical yet challenging task due to the inherently chaotic and 
+          tightly coupled spatio-temporal dynamics of the atmosphere. While recent advances in diffusion-based 
+          models attempt to capture both large-scale motion and fine-grained stochastic variability, 
+          they often suffer from scalability issues: latent-space approaches require a separately trained autoencoder, 
+          adding complexity and limiting generalization, while pixel-space approaches are computationally intensive 
+          and often omit attention mechanisms, reducing their ability to model long-range spatio-temporal dependencies. 
+          To address these limitations, we propose a Token-wise Attention integrated into not only the U-Net diffusion model 
+          but also the spatio-temporal encoder that dynamically captures multi-scale spatial interactions and temporal 
+          evolution. Unlike prior approaches, our method natively integrates attention into the architecture without incurring the high resource cost typical of pixel-space diffusion, thereby eliminating the need for separate latent modules. Our extensive experiments and visual evaluations across diverse datasets demonstrate that the proposed method significantly outperforms state-of-the-art approaches, yielding superior local fidelity, generalization, and robustness in complex precipitation forecasting scenarios. Our code will be publicly released.
+        </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="column">
+    <!-- Centered image -->
+    <div style="text-align:center;">
+      <img src="./static/images/architecture.png" alt="RainDiff Architecture">
+    </div>
+
+    <!-- Left-aligned caption with LaTeX math -->
+    <!-- <div class="content has-text-justified"> -->
+      
+      <p style="text-align:left;"> <b> <span>Figure 2:</span></b> Overall architecture of our precipitation nowcasting framework RainDiff.
+          Given an input sequence \(X_{0}\), a deterministic predictor
+          \(\mathcal{F}_{\theta_1}\) outputs a coarse prediction \(\mu\).
+          The concatenation of \(X_{0}\) and \(\mu\) is encoded by a cascaded
+          spatio-temporal encoder \(\mathcal{F}_{\theta_3}\) to yield conditioning
+          features \(h\), refined by Post-attention.
+          A diffusion-based stochastic module \(\mathcal{F}_{\theta_2}\) equipped
+          with Token-wise Attention at all resolutions in pixel space predicts
+          residual segments \(\hat{r}\) autoregressively, where the denoising
+          process is conditioned on \(h\) and the predicted segments.
+          This design captures rich contextual relationships and inter-frame
+          dependencies in the radar field while keeping computation efficient.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+</section>
+
+<section>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        
+
+        <h2 class="title is-3 has-text-justified">RainDiff</h2>
+        <div class="content has-text-justified">
+          <p>
+            Let \(X_{0} \in \mathbb{R}^{H \times W \times C \times T_{\text{in}}}\) be a 4-dimensional tensor of shape \((H, W, C, T_{\text{in}})\), 
+            representing a sequence of \(T_{\text{in}}\) input frames, where \(H\) and \(W\) denote the spatial resolution and \(C\) the number of channels.
+            Similarly, let \(y \in \mathbb{R}^{H \times W \times C \times T_{\text{out}}}\) denote the sequence of \(T_{\text{out}}\) future frames.
+            Our objective is to learn a generative model for the conditional distribution \(p(y \mid X_{0})\).
+          </p>
+          <p>
+            Our approach proceeds in two steps.
+            First, we train a deterministic predictor \(\mathcal{F}_{\theta_1} : \mathbb{R}^{H \times W \times C \times T_{\text{in}}} \rightarrow \mathbb{R}^{H \times W \times C \times T_{\text{out}}}\)
+            to estimate the conditional expectation \(\mu(X_{0}) = \mathbb{E}[y \mid X_{0}]\).
+            This estimate provides only a coarse approximation of the conditional distribution, capturing the global motion trend and overall structure
+            but failing to represent uncertainty and often leading to blurry predictions with a loss of fine-scale details.
+          </p>
+
+          <p>
+            Second, we introduce a spatio-temporal encoder \(\mathcal{F}_{\theta_3}(\cdot)\) that processes both \(X_{0}\) and \(\mu\) 
+            to extract a representation \(h\), which encodes global motion priors, sequence consistency, and inter-frame dependencies.
+            We then model the residual \(r = y - \mu\) using a stochastic prediction module \(\mathcal{F}_{\theta_2}(\cdot)\) based on a diffusion model.
+            Token-wise Attention refines the temporal evolution of the residual distribution conditioned on \(h\),
+            while the Post-attention mechanism sharpens \(h\) during denoising, amplifying salient context and suppressing irrelevant detail.
+          </p>
+
+          <p>
+            At inference, to generate a sample from \(p(y \mid X_{0})\), we first sample a residual \(\hat{r}\) from the diffusion-based prediction module
+            and then add it to the predicted mean \(\hat{\mu}\), yielding one realization \(\hat{y} = \hat{\mu} + \hat{r}\).
+            Repeating this procedure produces diverse realizations of plausible future sequences.
+            An overview of the proposed framework is shown in Figure 2.
+          </p>
+
+        </div>
+
+        <h2 class="title is-3 has-text-justified">Why Token-wise Attention Is Helpful?</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose <strong>Token-wise Attention</strong>, 
+            integrated across all spatial resolutions in our network. This design enables accurate modeling of fine-scale structures while maintaining computational efficiency.  
+            Unlike conventional self-attention, our token-wise formulation avoids the quadratic complexity induced by the high dimensionality of radar data.  
+            Moreover, all operations are performed directly in pixel space, eliminating the need for an external latent autoencoder.  
+            Finally, drawing on empirical insights, we introduce <strong>Post-attention</strong>, which leverages token-wise attention to emphasize the informative conditional context crucial for the denoising process.
+          </p>
+        </div>
+
+
+
+        <h2 class="title is-3 has-text-justified">Results</h2>
+
+        <div class="content has-text-centered">
+        <p class="content has-text-justified">
+          <strong>Table 1:</strong> Quantitative comparison across four radar nowcasting datasets (Shanghai Radar, MeteoNet, SEVIR, CIKM). We evaluate deterministic baselines (PhyDNet, SimVP, EarthFarseer, AlphaPre) and probabilistic methods (DiffCast) against our RainDiff using CSI, pooled CSI at \(4{\times}4\) and \(16{\times}16\) (CSI-4 / CSI-16), HSS, LPIPS, and SSIM. <b>Bold</b> marks our results. Overall, RainDiff attains the best or tied-best performance on most metrics and datasets, indicating both stronger localization and perceptual/structural quality. This design allows capturing rich context and dependency between frames in the radar field while maintaining efficient computation.
+        </p>
+        <img src="./static/images/qualitative.png" style="max-width:100%" alt="Dataset Distribution">
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img src="./static/images/frame_wise.png" style="max-width:80%" alt="Embodied Results">
+          <p class="content has-text-justified">
+            <b>Figure 3:</b> Frame-wise CSI and HSS for various methods on the Shanghai Radar dataset. As lead time increases, scores drop across all methods due to accumulating forecast uncertainty, yet our approach consistently outperforms the baselines at most timesteps—often by a larger margin at longer leads—demonstrating superior robustness to temporal expanding.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-centered">
+          <img src="./static/images/shanghai.png" style="max-width:100%" alt="Embodied Results">
+          <p class="content has-text-justified">
+            <b>Figure 4:</b> 
+            Qualitative comparison with existing works on the Shanghai Radar dataset, where the reflectivity range is on the top right. Deterministic models yield blurry outputs, while the stochastic model DiffCast, though sharper, introduces excessive and uncontrolled randomness at air masses' boundaries. Integrating Token-wise Attention not only enables the generation of realistic, high-fidelity details but also regulates the model's stochastic behavior, leading to forecasts with improved structural accuracy and consistency, thereby mitigating the chaotic predictions seen in DiffCast.         
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title"><a id="bibtex">BibTeX</a></h2>
+    <pre><code>@misc{
+      <!-- dissanayake2025goodfoundationmodelsstepbystep,
+      title={How Good are Foundation Models in Step-by-Step Embodied Reasoning?}, 
+      author={Dinura Dissanayake and Ahmed Heakl and Omkar Thawakar and Noor Ahsan and Ritesh Thawkar and Ketan More and Jean Lahoud and Rao Anwer and Hisham Cholakkal and Ivan Laptev and Fahad Shahbaz Khan and Salman Khan},
+      year={2025},
+      eprint={2509.15293},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2509.15293},  -->
+}
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website adapted from the following <a href="https://mingukkang.github.io/GigaGAN/">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="juxtapose/js/juxtapose.js"></script>
+
+<script>
+var slider;
+let origOptions = {
+    "makeResponsive": true,
+    "showLabels": true,
+    "mode": "horizontal",
+    "showCredits": true,
+    "animate": true,
+    "startingPosition": "50"
+};
+
+const juxtaposeSelector = "#juxtapose-embed";
+const transientSelector = "#juxtapose-hidden";
+
+  inputImage.src = "./static/images/".concat(name, "_input.jpg")
+  outputImage.src = "./static/images/".concat(name, "_output.jpg")
+
+  let images = [inputImage, outputImage];
+  let options = slider.options;
+  options.callback = function(obj) {
+      var newNode = document.getElementById(obj.selector.substring(1));
+      var oldNode = document.getElementById(juxtaposeSelector.substring(1));
+      console.log(obj.selector.substring(1));
+      console.log(newNode.children[0]);
+      oldNode.replaceChild(newNode.children[0], oldNode.children[0]);
+      //newNode.removeChild(newNode.children[0]);
+      
+  };
+  
+  slider = new juxtapose.JXSlider(transientSelector, images, options);
+
+
+
+
+(function() {
+    slider = new juxtapose.JXSlider(
+        juxtaposeSelector, origImages, origOptions);
+    //document.getElementById("left-button").onclick = replaceLeft;
+    //document.getElementById("right-button").onclick = replaceRight;
+})();
+  // Get the image text
+  var imgText = document.getElementById("imgtext");
+  // Use the same src in the expanded image as the image being clicked on from the grid
+  // expandImg.src = imgs.src;
+  // Use the value of the alt attribute of the clickable image as text inside the expanded image
+  imgText.innerHTML = name;
+  // Show the container element (hidden with CSS)
+  // expandImg.parentElement.style.display = "block";
+
+$(".flip-card").click(function() {
+            console.log("fading in")
+            div_back = $(this).children().children()[1]
+            div_front = $(this).children().children()[0]
+            // console.log($(this).children("div.flip-card-back"))
+            console.log(div_back)
+            $(div_front).addClass("out");
+            $(div_front).removeClass("in");
+
+            $(div_back).addClass("in");
+            $(div_back).removeClass("out");
+
+});
+
+$(".flip-card").mouseleave(function() {
+            console.log("fading in")
+            div_back = $(this).children().children()[1]
+            div_front = $(this).children().children()[0]
+            // console.log($(this).children("div.flip-card-back"))
+            console.log(div_back)
+            $(div_front).addClass("in");
+            $(div_front).removeClass("out");
+
+            $(div_back).addClass("out");
+            $(div_back).removeClass("in");
+
+});
+
+</script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>    
+
+</body>
+</html>
