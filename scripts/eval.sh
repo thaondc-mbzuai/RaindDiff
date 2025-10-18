@@ -5,7 +5,6 @@ cd ../weights
 wget https://huggingface.co/datasets/Thao123/RainDiff/resolve/main/model_shanghai.pt
 
 cd ../..
-
 conda env create -f env.ymal
 conda activate raindiff
 
