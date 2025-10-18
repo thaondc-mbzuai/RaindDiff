@@ -17,5 +17,5 @@ CUDA_VISIBLE_DEVICES=0 python run.py \
   --frames_in 5 \
   --frames_out 20 \
   --eval \
-  --ckpt_milestone ./model_shanghai.pt \
+  --ckpt_milestone ./resources/weights/model_shanghai.pt \
   --exp_note raindiff
