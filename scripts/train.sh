@@ -1,9 +1,6 @@
 cd ./resources/data
 wget https://huggingface.co/datasets/Thao123/RainDiff/resolve/main/shanghai.h5
 
-cd ../weights
-wget https://huggingface.co/datasets/Thao123/RainDiff/resolve/main/model_shanghai.pt
-
 cd ../..
 
 conda env create -f env.ymal
