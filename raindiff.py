@@ -1067,66 +1067,11 @@ class GaussianDiffusion(nn.Module):
 
         
         if compute_loss and frames_gt!=None:
-            loss = self._forward(frames_in, frames_gt)
-            # raise NotImplementedError("We are sorry that we do not support training process for now because of business limitation ")
-            return None, loss
+            raise NotImplementedError("We are sorry that we do not support training process for now because of business limitation ")
         else:
             pred, mu, y = self.sample(frames_in=frames_in, T_out=T_out)
             return pred, None
     
-        #called in the predict()    
-    def _forward(self, frames_in, frames_gt):
-
-            B, T_in, c, h, w = frames_in.shape
-            T_out = frames_gt.shape[1]
-
-            # 确定性预测，调用simVP
-            device = frames_in.device
-            backbone_output, backbone_loss = self.backbone_net.predict(frames_in, frames_gt=frames_gt,
-                                                                    compute_loss=True)
-
-            #归一化
-            frames_in = self.normalize(frames_in)
-            frames_gt = self.normalize(frames_gt)
-            backbone_output = self.normalize(backbone_output)
-
-            #计算残差r = y - mu 和 h
-            residual = frames_gt - backbone_output  #eq.7
-            global_ctx, local_ctx, all_ctx = self.ctx_net.scan_ctx(torch.cat((frames_in, backbone_output), dim=1))  #eq.14
-
-            #what is global_ctx? Why iss only partial of global_ctx is pass into each down block? ContextNet?
-            #进入
-            pre_frag = frames_in
-            pre_mu = None
-            pred_ress = []
-            diff_loss = 0.
-            t = torch.randint(0, self.num_timesteps, (B,), device=self.device).long()  #随机在[0,T]之间采样一个batch的时间步
-
-            #以segment进行循环
-            for frag_idx in range(T_out // T_in):
-
-                #取当前segment的mu和r
-                mu = backbone_output[:, frag_idx * T_in: (frag_idx + 1) * T_in]   # ^mu_j
-                res = residual[:, frag_idx * T_in: (frag_idx + 1) * T_in]         # ^s_j
-
-                # s_j-1  由于j=0时，s_-1没有值，用frame_in代替
-                cond = pre_frag - pre_mu if pre_mu is not None else torch.zeros_like(pre_frag)
-
-                # 用 s_j-1，h，t 来进行预测
-                _, noise_loss = self.p_losses(res, t, cond=cond, ctx=global_ctx if frag_idx > 0 else local_ctx, all_ctx = all_ctx,
-                                                    idx=torch.full((B,), frag_idx, device=device, dtype=torch.long))
-                diff_loss += noise_loss
-
-                pre_frag = frames_gt[:, frag_idx * T_in: (frag_idx + 1) * T_in]
-                pre_mu = mu
-
-            diff_loss /= (T_out // T_in)
-            loss = (1 - self.loss_weight_factor) * backbone_loss + self.loss_weight_factor * diff_loss
-            
-            # loss = (1 - alpha) * backbone_loss + alpha * diff_loss / 3.
-
-            return loss
-
     @autocast(enabled = False)
     def q_sample(self, x_start, t, noise = None):
         noise = default(noise, lambda: torch.randn_like(x_start))
