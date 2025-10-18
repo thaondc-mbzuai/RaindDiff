@@ -369,12 +369,6 @@ class Runner(object):
         model.load_state_dict(data['model'])
         self.model = self.accelerator.prepare(model)
         
-        self.optimizer.load_state_dict(data['opt'])
-
-        self.scheduler.load_state_dict(data['scheduler'])
-        self.cur_step = data['step']
-        self.cur_epoch = data['epoch'] + 1
-
         if self.is_main:
             self.ema.load_state_dict(data['ema'])
 
