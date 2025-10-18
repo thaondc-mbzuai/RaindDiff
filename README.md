@@ -1,4 +1,4 @@
-# DiffCast-CVPR2024
+# RainDiff
 Official implementation of "[RainDiff: End to End Precipitation Nowcasting Via Token-wise Attention Diffusion](https://arxiv.org/pdf/2510.14962)"
 
 ![](resources/architecture.png)
