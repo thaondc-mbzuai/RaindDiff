@@ -15,9 +15,9 @@ conda env create -f env.ymal
 conda activate raindiff
 ```
 ### Resource
-Dataset [Shanghai_Radar](https://drive.google.com/file/d/14JB4ElkZKHzqxIGKMFrbnY2P4zcae8RA/view)
+Dataset [Shanghai_Radar](https://huggingface.co/datasets/Thao123/RainDiff/blob/main/shanghai.h5)
 
-Pretrained RainDiff for Shanghai Radar: [HuggingFace](https://drive.google.com/file/d/1y8BvYz3U_awm1eAYqXBy6tgbMy8t40Xr/view?usp=sharing)
+Pretrained RainDiff for Shanghai Radar: [HuggingFace](https://huggingface.co/datasets/Thao123/RainDiff/blob/main/model_shanghai.pt)
 
 ### Evaluation
 ```shell
